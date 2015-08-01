@@ -1,11 +1,10 @@
 #include <node.h>
 #include <v8.h>
-
 // #include <iostream>
 // #include <stdio.h>
 
 using namespace v8;
-// using namespace std;
+using namespace std;
 
 // A utility function to swap two elements
 void swap(unsigned int* a,unsigned int* b)
@@ -47,6 +46,18 @@ void quickSort(unsigned int arr[], int l, int h)
     }
 }
 
+int comp(const void* a, const void* b)
+{
+    int arg1 = *static_cast<const int*>(a);
+    int arg2 = *static_cast<const int*>(b);
+
+    if(arg1 < arg2) return -1;
+    if(arg1 > arg2) return 1;
+    return 0;
+    // return (arg1 > arg2) - (arg1 < arg2); // possible shortcut
+    // return arg1 - arg2; // erroneous shortcut (fails if INT_MIN is present)
+}
+
 void doSort(const FunctionCallbackInfo<Value>& args)
 {
     Isolate* isolate = Isolate::GetCurrent();
@@ -72,8 +83,6 @@ void doSort(const FunctionCallbackInfo<Value>& args)
 
     args.GetReturnValue().Set(obj);
 }
-
-
 
 void Init(Handle<Object> target) {
   NODE_SET_METHOD(target, "sortC", doSort);

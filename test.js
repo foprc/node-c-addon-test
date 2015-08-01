@@ -10,10 +10,10 @@ var jsSort = require('./sort');
 startTime = (new Date()).getTime();
 jsSort.sort(data);
 endTime = (new Date()).getTime();
-console.log('Sort data by javascript using ' + (endTime - startTime) + ' ms.');
+console.log('Sort data by javascript in ' + (endTime - startTime) + ' ms.');
 
 var sortC = require('./build/Release/sortC');
 startTime = (new Date()).getTime();
 sortC.sortC(data);
 endTime = (new Date()).getTime();
-console.log('Sort data by C++ using ' + (endTime - startTime) + ' ms.');
+console.log('Sort data by C++ in ' + (endTime - startTime) + ' ms.');
