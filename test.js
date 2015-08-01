@@ -1,11 +1,13 @@
 var source = require('./shuffle');
+var source2 = require('./build/Release/shuffleC');
 
 var startTime = (new Date()).getTime();
-var data = source.genData(100000, 1, 100000);
+// var data = source.genData(500000, 1, 500000);
+var data = source2.genData(550000);
 var endTime = (new Date()).getTime();
 
-console.log('Generate data using ' + (endTime - startTime) + ' ms.');
-
+console.log('Generate data in ' + (endTime - startTime) + ' ms.');
+//
 var jsSort = require('./sort');
 startTime = (new Date()).getTime();
 jsSort.sort(data);

@@ -17,12 +17,12 @@ void swap(unsigned int* a,unsigned int* b)
 /* This function takes last element as pivot, places the pivot element at its
    correct position in sorted array, and places all smaller (smaller than pivot)
    to left of pivot and all greater elements to right of pivot */
-int partition (unsigned int arr[], int l, int h)
+unsigned int partition (unsigned int arr[], unsigned int l, unsigned int h)
 {
     unsigned int x = arr[h];    // pivot
-    int i = (l - 1);  // Index of smaller element
+    unsigned int i = (l - 1);  // Index of smaller element
 
-    for (int j = l; j <= h- 1; j++)
+    for (unsigned int j = l; j <= h- 1; j++)
     {
         // If current element is smaller than or equal to pivot
         if (arr[j] <= x)
@@ -36,7 +36,7 @@ int partition (unsigned int arr[], int l, int h)
 }
 
 /* arr[] --> Array to be sorted, l  --> Starting index, h  --> Ending index */
-void quickSort(unsigned int arr[], int l, int h)
+void quickSort(unsigned int arr[], unsigned int l, unsigned int h)
 {
     if (l < h)
     {
@@ -46,10 +46,10 @@ void quickSort(unsigned int arr[], int l, int h)
     }
 }
 
-int comp(const void* a, const void* b)
+unsigned int comp(const void* a, const void* b)
 {
-    int arg1 = *static_cast<const int*>(a);
-    int arg2 = *static_cast<const int*>(b);
+    unsigned int arg1 = *static_cast<const unsigned int*>(a);
+    unsigned int arg2 = *static_cast<const unsigned int*>(b);
 
     if(arg1 < arg2) return -1;
     if(arg1 > arg2) return 1;
@@ -65,17 +65,17 @@ void doSort(const FunctionCallbackInfo<Value>& args)
 
     Local<Object> obj = args[0]->ToObject();
 
-    int objLength = obj->Get(String::NewFromUtf8(isolate, "length"))->ToObject()->Uint32Value();
+    unsigned int objLength = obj->Get(String::NewFromUtf8(isolate, "length"))->ToObject()->Uint32Value();
 
     unsigned int arr[objLength];
-    for(int i = 0; i < objLength; i++)
+    for(unsigned int i = 0; i < objLength; i++)
     {
         arr[i] = obj->Get(i)->Uint32Value();
     }
 
     quickSort(arr, 0, objLength - 1);
 
-    for(int i = 0; i < objLength; i++)
+    for(unsigned int i = 0; i < objLength; i++)
     {
         Handle<Value> x =  Integer::NewFromUnsigned(isolate,arr[i]);
         obj->Set(i,x);
